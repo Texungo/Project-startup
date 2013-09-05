@@ -1,0 +1,23 @@
+@charset "utf-8";
+@import "libs/config.less";
+@import "libs/func.less";
+@import "libs/grid.less";
+
+/* General styles
+============================== */
+html,
+body {
+	width:  100%;
+	height:  auto;
+	min-height: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	&, a { .font(@Bold); }
+}
+
+/* General links
+============================== */
+a,
+a:hover,
+*:link  { text-decoration: none; }
