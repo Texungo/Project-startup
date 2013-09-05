@@ -1,0 +1,495 @@
+/* Functions
+=======================================*/
+.pointer() { cursor: pointer; }
+
+/* Posicionamento */
+.fixed()    { position: fixed; }
+.static()   { position: static; }
+.relative() { position: relative; }
+
+.fixed(@index) {
+	z-index: @index;
+	position: fixed;
+}
+
+.relative(@index) {
+	z-index: @index;
+	position: relative;
+}
+
+.absolute(@index) {
+	z-index: @index;
+	position: absolute;
+}
+
+.absolute() {
+	position: absolute;
+
+	.center(@index) {
+		z-index: @index;
+		.absolute .center();
+	}
+
+	.center() {
+		top:    0;
+		left:   0;
+		right:  0;
+		bottom: 0;
+
+		margin: auto;
+		position: absolute;
+	}
+}
+
+.align() {
+	.top() { vertical-align: top; }
+	.bottom() { vertical-align: bottom; }
+	.middle() { vertical-align: middle; }
+
+	.left()   { text-align: left;   }
+	.right()  { text-align: right;  }
+	.center() { text-align: center; }
+}
+/* Fim posicionamento */
+
+
+/* Espaçamento */
+.p-top    (@val) { padding-top: @val * 1px; }
+.p-right  (@val) { padding-right: @val * 1px; }
+.p-bottom (@val) { padding-bottom: @val * 1px;}
+.p-left   (@val) { padding-left: @val * 1px; }
+
+.m-top    (@val) { margin-top: @val * 1px; }
+.m-right  (@val) { margin-right: @val * 1px; }
+.m-bottom (@val) { margin-bottom: @val * 1px; }
+.m-left   (@val) { margin-left: @val * 1px; }
+.clear-fix() {
+	*zoom: 1;
+	
+	&:before,
+	&:after {
+		content: "";
+		display: table;
+	}
+
+	&:after { clear:both; }
+}
+/* Fim espaçamento */
+
+
+/* Tipos de display */
+.table() { display: table; }
+.block() { display: block; }
+.inline(@align: top) {
+	display: inline;
+	vertical-align: @align;
+
+	.block(@align: top) {
+		display: inline-block;
+		vertical-align: @align;
+	}
+
+	.table(@align: top) {
+		display: inline-table;
+		vertical-align: @align;
+	}
+}
+
+.bg (@src, @x: left, @y: top, @repeat: no-repeat) {
+	background: @arguments;
+
+	.none() { .no .bg(); }
+	.img(@url)   { background-image: @url; }
+	.image(@url) { background-image: @url; }
+
+	.size(@arguments){ background-size: @arguments; }
+	.position (@x: left, @y: top) { background-position: @arguments !important; }
+
+	.repeat() { background-repeat: repeat; }
+	.repeat(@value) when (@value = no) { background-repeat: no-repeat; }
+	.repeat(@value) when (@value = y) or (@value = x) { background: ~"repeat-@{value}"; }
+}
+
+.text() {
+	.left()   { text-align: left;   }
+	.right()  { text-align: right;  }
+	.center() { text-align: center; }
+
+	.lowercase() { text-transform: lowercase; }
+	.uppercase() { text-transform: uppercase; }
+
+	.shadow(@val) {
+		-webkit-text-shadow: @arguments;
+		   -moz-text-shadow: @arguments;
+				text-shadow: @arguments;
+	}
+
+	.column(@count, @width, @space) {
+		-webkit-column-count: @count;
+		   -moz-column-count: @count;		 
+		 		column-count: @count;
+			
+		-webkit-column-width: @width;
+		   -moz-column-width: @width;
+				column-width: @width;
+
+		-webkit-column-gap: @space;
+		   -moz-column-gap: @space;
+				column-gap: @space;
+	}
+}
+
+.no() {
+	.spaces() {
+		padding: 0;
+		margin:  0;
+		-webkit-margin-before: 0;
+		-webkit-margin-after:  0;
+	}
+
+	.bg() {
+		background: none;
+		background-color: none;	
+		background-image: none;
+	}
+}
+
+.transition(@config: all 0.5s linear) {
+	-webkit-transition: @arguments;
+	   -moz-transition: @arguments;
+		-ms-transition: @arguments;
+		 -o-transition: @arguments;
+			transition: @arguments;
+}
+
+.box() {
+	.shadow (@all) {
+		-webkit-box-shadow:  @arguments;
+		   -moz-box-shadow:  @arguments;
+				box-shadow:  @arguments;
+	}
+
+	.sizing (@all: border-box) {
+		-webkit-box-sizing:  @arguments;
+		   -moz-box-sizing:  @arguments;
+				box-sizing:  @arguments;
+	}
+}
+
+.border() {
+	.radius(@val) {
+		-webkit-border-radius: @val * 1px;
+		   -moz-border-radius: @val * 1px;
+				border-radius: @val * 1px;
+	}
+
+	.top-left-radius(@val) {
+		-webkit-border-top-left-radius: @val * 1px;
+		   -moz-border-radius-topleft:  @val * 1px;
+			 -o-border-top-left-radius: @val * 1px;
+				border-top-left-radius: @val * 1px;
+	}
+
+	.top-right-radius(@val) {
+		-webkit-border-top-right-radius: @val * 1px;
+		   -moz-border-radius-topright:  @val * 1px;
+			 -o-border-top-right-radius: @val * 1px;
+				border-top-right-radius: @val * 1px;
+	}
+
+	.bottom-left-radius(@val) {
+		-webkit-border-bottom-left-radius: @val * 1px;
+		   -moz-border-radius-bottomleft:  @val * 1px;
+			 -o-border-bottom-left-radius: @val * 1px;
+				border-bottom-left-radius: @val * 1px;
+	}
+
+	.bottom-right-radius(@val) {
+		-webkit-border-bottom-right-radius: @val * 1px;
+		   -moz-border-radius-bottomright:  @val * 1px;
+			 -o-border-bottom-right-radius: @val * 1px;
+				border-bottom-right-radius: @val * 1px;
+	}
+
+	.top-radius(@val) {
+		.border .top-left-radius(@val);
+		.border .top-right-radius(@val);
+	}
+
+	.right-radius(@val) {
+		.border .top-right-radius(@val);
+		.border .bottom-right-radius(@val);
+	}
+
+	.bottom-radius(@val) {
+		.border .bottom-left-radius(@val);
+		.border .bottom-right-radius(@val);
+	}
+
+	.left-radius(@val) {
+		.border .top-left-radius(@val);
+		.border .bottom-left-radius(@val);
+	}
+}
+
+
+/* Funções de visibilidade dos elementos 
+========================================== */
+.opacity(@opacity){
+	-webkit-opacity: @opacity;
+	 -khtml-opacity: @opacity;
+	   -moz-opacity: @opacity;
+			opacity: @opacity;
+
+	@ie_opacity: @opacity * 100;
+	-ms-filter: ~"progid:DXImageTransform.Microsoft.Alpha(opacity=@{ie_opacity})";
+	    filter: ~"alpha(opacity=@{ie_opacity})";
+}
+
+.over() {
+	.auto() { overflow: auto; }
+	.show() { overflow: visible; }
+	.hide() { overflow: hidden; }
+	
+	.show-y () { overflow-y: visible; }
+	.show-x () { overflow-x: visible; }
+	.hide-y () { overflow-y: hidden; }
+	.hide-x () { overflow-x: hidden; }
+}
+
+.toggle-placeholder(@type: text-indent, @time: .5s .5s) {
+	.show .placeholder(@type, @time);
+
+	&:focus { .hide .placeholder(@type, @time); }
+}
+
+.show () {
+	display: block;
+
+	.maximize (@transition-time: .5s, @position: relative, @transitions: '') {
+		visibility: visible;
+		position: @position;
+
+		.opacity(1);
+		.transition(all @transition-time);
+	}
+
+	.opacity(@time: .5s, @position: relative, @transitions: '') {
+		.show .maximize(@time, @position, @transitions);
+	}
+
+	.text-indent(@time: .5s) {
+		text-indent: 0;
+		.transition(text-indent @time ease);
+	}
+
+	.placeholder(@type: text-indent, @time: 0.5s 0.5s){
+		&::-webkit-input-placeholder {
+			.show .placeholder-router(@type, @time);
+		}
+
+		&:-moz-placeholder {
+			.show .placeholder-router(@type, @time);
+		}
+
+		&::-moz-placeholder {
+			.show .placeholder-router(@type, @time);
+		}
+
+		&:-ms-input-placeholder {
+			.show .placeholder-router(@type, @time);
+		}
+	}
+
+	.placeholder-router(@type, @time) when (@type = opacity) {
+		.show .opacity(@time, static);
+	}
+
+	.placeholder-router(@type, @time) when (@type = text-indent) {
+		.show .text-indent(@time);
+	}
+}
+
+.hide () {
+	display: none;
+
+	.minimize (@transition-time: .5s, @position: absolute) {
+		visibility: hidden;
+		position: @position;
+
+		.opacity(0);
+		.transition(all @transition-time);
+	}
+
+	.opacity(@time, @position, @transitions: '') {
+		.hide .minimize(@time, @position, @transitions);
+	}
+
+	.text-indent(@time) {
+		text-indent: -200%;
+		.transition(text-indent @time ease);
+	}
+
+	.placeholder(@type, @time: 0.5s 0.5s){
+		&::-webkit-input-placeholder {
+			.hide .placeholder-router(@type, @time);
+		}
+
+		&:-moz-placeholder {
+			.hide .placeholder-router(@type, @time);
+		}
+
+		&::-moz-placeholder {
+			.hide .placeholder-router(@type, @time);
+		}
+
+		&:-ms-input-placeholder {
+			.hide .placeholder-router(@type, @time);
+		}
+	}
+
+	.placeholder-router(@type, @time) when (@type = opacity) {
+		.hide .opacity(@time, static);
+	}
+
+	.placeholder-router(@type, @time) when (@type = text-indent) {
+		.hide .text-indent(@time);
+	}
+}
+/* ======================================= */
+
+
+
+/**
+ * Funções de font
+ * Dependendo do tipo de argumento que
+ * é passado para a função, ela atribui 
+ * o argumento ao devido atributo css.
+ *
+ *
+ * Exemplos:
+ *
+ * * font-family: .font(Arial)
+ *
+ * * font-size e line-height (automático): .font(12pt);
+ * * font-size e line-height (manual): .font(12pt, 15pt);
+ *
+ * * font-size, line-height (automático) e color: .font(12pt, #fff);
+ * * font-size, line-height (manual) e color: .font(12pt, 15pt, #fff);
+ *
+ * * font-size, line-height (automático) e font-family: .font(12pt, Arial);
+ * * font-size, line-height (manual) e font-family: .font(12pt, 15pt, Arial);
+ *
+ * * font-size, line-height (automático), font-family e color: .font(12pt, Arial, #fff);
+ * * font-size, line-height (manual), font-family e color: .font(12pt, 15pt, Arial, #fff);
+ */
+
+.font-face(@font-family, @file-name) {
+	@font-path: '@{fonts-path}@{file-name}';
+	@font-face {
+		font-family: @font-family;
+		src: url('@{font-path}.eot');
+		src: url('@{font-path}.eot?#iefix') format('embedded-opentype'),
+			 url('@{font-path}.woff') format('woff'),
+			 url('@{font-path}.ttf') format('truetype'),
+			 url('@{font-path}.svg#webfont') format('svg');
+	}
+}
+
+@line-ratio: 2.5 / 1.618;
+/* font-family: @family; */
+.font(@family) when not (isnumber(@family)) {
+	font-family: @family;
+}
+
+/**
+ * color: @color;
+ * font-family: @family;
+ */
+.font(@family, @color) when not (isnumber(@family)) and (iscolor(@color)){
+	color: @color;
+	font-family: @family;
+}
+
+/**
+ * font-size: @size;
+ * line-height: line-height calculado a partir do @size;
+ */
+.font(@size) when (isnumber(@size)){
+	font-size:  @size;
+	line-height: (round(@size * @line-ratio) - 3) * 1px;
+}
+
+/**
+ * font-size: @size;
+ * line-height: @line;
+ */
+.font(@size, @line) when (isnumber(@size)) and (isnumber(@line)){
+	font-size:  @size;
+	line-height: (round(@size * @line-ratio) - 3) * 1px;
+}
+
+/**
+ * color: @color;
+ * font-size: @size;
+ * line-height: line-height calculado a partir do @size;
+ */
+.font(@size, @color) when (isnumber(@size)) and (iscolor(@color)){
+	color: @color;
+
+	font-size:  @size;
+	line-height: (round(@size * @line-ratio) - 3) * 1px;
+}
+
+/**
+ * color: @color;
+ * font-size: @size;
+ * line-height: @line;
+ */
+.font(@size, @line, @color) when (isnumber(@size)) and (isnumber(@line)) and (iscolor(@color)) {
+	color: @color;
+
+	font-size:  @size;
+	line-height: (round(@size * @line-ratio) - 3) * 1px;
+}
+
+
+/**
+ * font-size: @size;
+ * line-height: line-height calculado a partir do @size;
+ * font-family: @family;
+ */
+.font(@size, @family) when (isnumber(@size)) and not (isnumber(@family)) and not (iscolor(@family)){
+	@line-height: (round(@size * @line-ratio) - 3) * 1px;
+	font: ~"@{size}/@{line-height}" @family;
+}
+
+
+/**
+ * font-size: @size/@line @family;
+ */
+.font(@size, @line-height, @family) when (isnumber(@size)) and (isnumber(@line)) and not(iscolor(@family)) {
+	font: ~"@{size}/@{line-height}" @family;
+}
+
+/**
+ * color: @color;
+ * font: @size/@line-height @family;
+ * *line-height calculado a partir do @size;
+ */
+.font(@size, @family, @color) when (isnumber(@size)) and not (isnumber(@family)) and (iscolor(@color)){
+	color: @color;
+
+	@line-height: (round(@size * @line-ratio) - 3) * 1px;
+	font: ~"@{size}/@{line-height}" @family;
+}
+
+/**
+ * color: @color; 
+ * font: @size/@line-height @family;
+ */
+.font(@size, @line-height, @family, @color) {
+	color: @color;
+	font: ~"@{size}/@{line-height}" @family;
+}
+/* ===================== fim das funções de font ===================== */
