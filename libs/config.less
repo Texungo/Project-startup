@@ -1,19 +1,24 @@
 /* Colors
 ============================================== */
-@black: #333;
+@black:  #333;
 
 
 /* CSS Images
 ============================================== */
 @fix: 'assets';
 @img-path: '@{fix}/images/';
+@back: '@{img-path}backgrounds/';
+@comm: '@{img-path}common/';
+@misc: '@{img-path}misc/';
+@icon: '@{img-path}icon/';
+
 
 /* Font-face
 ============================================== */
 @fonts-path: '@{fix}/fonts/';
-@FN: Arial, Helvetica, sans-serif;
+@fonts-default: Arial, Helvetica, sans-serif;
 
-@Bold:   'font-name', @FN;
-@Medium: 'font-name', @FN;
-@Light:  'font-name', @FN;
-@Regular:'font-name', @FN;
+@Regular: "font-name", @fonts-default;
+@Light:   "font-name", @fonts-default;
+@Medium:  "font-name", @fonts-default;
+@Bold:    "font-name", @fonts-default;
