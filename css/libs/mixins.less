@@ -1,35 +1,36 @@
-/* Functions
+/* Mixins
+ * v0.8
  * =======================================*/
 
 /* Posicionamento */
-.fixed ()    { position: fixed; }
-.static ()   { position: static; }
-.relative () { position: relative; }
+.fixed()    { position: fixed; }
+.static()   { position: static; }
+.relative() { position: relative; }
 
-.fixed (@index) {
+.fixed(@index) {
 	z-index: @index;
 	position: fixed;
 }
 
-.relative (@index) {
+.relative(@index) {
 	z-index: @index;
 	position: relative;
 }
 
-.absolute (@index) {
+.absolute(@index) {
 	z-index: @index;
 	position: absolute;
 }
 
-.absolute () {
+.absolute() {
 	position: absolute;
 
-	.center (@index) {
+	.center(@index) {
 		z-index: @index;
-		.absolute .center ();
+		.absolute .center();
 	}
 
-	.center () {
+	.center() {
 		top:    0;
 		left:   0;
 		right:  0;
@@ -40,30 +41,30 @@
 	}
 }
 
-.align () {
-	.top () { vertical-align: top; }
-	.bottom () { vertical-align: bottom; }
-	.middle () { vertical-align: middle; }
+.align() {
+	.top() { vertical-align: top; }
+	.bottom() { vertical-align: bottom; }
+	.middle() { vertical-align: middle; }
 
-	.left ()   { text-align: left;   }
-	.right ()  { text-align: right;  }
-	.center () { text-align: center; }
+	.left()   { text-align: left;   }
+	.right()  { text-align: right;  }
+	.center() { text-align: center; }
 }
 /* Fim posicionamento */
 
 
 /* Espaçamento */
-.p-top    (@val) { padding-top:    @val * 1px; }
-.p-right  (@val) { padding-right:  @val * 1px; }
-.p-bottom (@val) { padding-bottom: @val * 1px; }
-.p-left   (@val) { padding-left:   @val * 1px; }
+.p-top(@val)    { padding-top:    @val * 1px; }
+.p-right(@val)  { padding-right:  @val * 1px; }
+.p-bottom(@val) { padding-bottom: @val * 1px; }
+.p-left (@val)  { padding-left:   @val * 1px; }
 
-.m-top    (@val) { margin-top:     @val * 1px; }
-.m-right  (@val) { margin-right:   @val * 1px; }
-.m-bottom (@val) { margin-bottom:  @val * 1px; }
-.m-left   (@val) { margin-left:    @val * 1px; }
+.m-top(@val)    { margin-top:     @val * 1px; }
+.m-right(@val)  { margin-right:   @val * 1px; }
+.m-bottom(@val) { margin-bottom:  @val * 1px; }
+.m-left (@val)  { margin-left:    @val * 1px; }
 
-.clear-fix () {
+.clear-fix() {
 	*zoom: 1;
 	
 	&:before,
@@ -78,76 +79,98 @@
 
 
 /* Tipos de display */
-.table () { display: table; }
-.block () { display: block; }
-.inline (@align: top) {
+.table() { display: table; }
+.block() { display: block; }
+.inline(@align: top) {
 	display: inline;
 	vertical-align: @align;
 
-	.block (@align: top) {
+	.block(@align: top) {
 		display: inline-block;
 		vertical-align: @align;
 	}
 
-	.table (@align: top) {
+	.table(@align: top) {
 		display: inline-table;
 		vertical-align: @align;
 	}
 }
 /* Fim tipos de display */
 
+.pointer() { cursor: pointer; }
 
-.pointer () { cursor: pointer; }
-
-.bg (@color) when (iscolor (@color)){
+.bg(@color) when (iscolor(@color)) {
 	background-color: @color;
 }
 
-.bg (@src, @x: left, @y: top, @repeat: no-repeat) {
+.bg(@src, @x: left, @y: top, @repeat: no-repeat) when not (iscolor(@src)) {
 	background: @arguments;
 
-	.none () { background: none; }
+	.none() { background: none; }
 
-	.img (@url)   { background-image: @url; }
-	.image (@url) { background-image: @url; }
+	.img(@url)   { background-image: @url; }
+	.image(@url) { background-image: @url; }
 
-	.color (@color) { background-color: @color; }
+	.color(@color) { background-color: @color; }
 
-	.size (@arguments){ background-size: @arguments; }
-	.position (@x: left, @y: top) { background-position: @arguments; }
+	.size(@arguments) { background-size: @arguments; }
+	.pos(@x: left, @y: top) { background-position: @arguments; }
+	.position(@x: left, @y: top) { background-position: @arguments; }
 
-	.repeat () { background-repeat: repeat; }
-	.repeat (@value) when (@value = no) { background-repeat: no-repeat; }
-	.repeat (@value) when (@value = y), (@value = x) { background: ~"repeat-@{value}"; }
+	.repeat() { background-repeat: repeat; }
+	.repeat-x() { background-repeat: repeat-x; }
+	.repeat-y() { background-repeat: repeat-y; }
+	.no-repeat() { background-repeat: no-repeat; }
 
-	.clip (@clip: border) {
+	.clip(@clip: border) {
 		-webkit-background-clip: @clip;
 		 -khtml-background-clip: ~"@{clip}"-box;
 		   -moz-background-clip: @clip;
 				background-clip: ~"@{clip}"-box;
 	}
+
+	.linear-gradient(@color-1, @color-2) {
+		background: @color-1; /* Old browsers */
+		background: -moz-linear-gradient(top, @color-1 50%, @color-2 100%); /* FF3.6+ */
+		background: -webkit-gradient(linear, left top, left bottom, color-stop(50%,@color-1), color-stop(100%,@color-2)); /* Chrome,Safari4+ */
+		background: -webkit-linear-gradient(top, @color-1 50%,@color-2 100%); /* Chrome10+,Safari5.1+ */
+		background: -o-linear-gradient(top, @color-1 50%,@color-2 100%); /* Opera 11.10+ */
+		background: -ms-linear-gradient(top, @color-1 50%,@color-2 100%); /* IE10+ */
+		background: linear-gradient(to bottom, @color-1 50%,@color-2 100%); /* W3C */
+		filter: ~"progid:DXImageTransform.Microsoft.gradient( startColorstr='@{color-1}', endColorstr='@{color-2}',GradientType=0 )"; /* IE6-8 */
+	}
+
+	.repeating-gradient(@color-1, @size-1, @color-2, @size-2, @rotate: 90deg) {
+		background: @color-1; /* Old browsers */
+		background: -moz-repeating-linear-gradient(@rotate, @color-1, @color-1 @size-1, @color-2 @size-1, @color-2 @size-2); /* FF3.6+ */
+		background: -webkit-repeating-gradient(@rotate, @color-1, @color-1 @size-1, @color-2 @size-1, @color-2 @size-2); /* Chrome,Safari4+ */
+		background: -webkit-repeating-linear-gradient(@rotate, @color-1, @color-1 @size-1, @color-2 @size-2); /* Chrome10+,Safari5.1+ */
+		background: -o-repeating-linear-gradient(@rotate, @color-1, @color-1 @size-1, @color-2 @size-1, @color-2 @size-2); /* Opera 11.10+ */
+		background: -ms-repeating-linear-gradient(@rotate, @color-1, @color-1 @size-1, @color-2 @size-1, @color-2 @size-2); /* IE10+ */
+		background: repeating-linear-gradient(@rotate, @color-1, @color-1 @size-1, @color-2 @size-1, @color-2 @size-2); /* W3C */
+	}
 }
 
-.text () {
-	.left ()   { text-align: left;   }
-	.right ()  { text-align: right;  }
-	.center () { text-align: center; }
+.text() {
+	.left()   { text-align: left;   }
+	.right()  { text-align: right;  }
+	.center() { text-align: center; }
 
-	.lowercase () { text-transform: lowercase; }
-	.uppercase () { text-transform: uppercase; }
+	.lowercase() { text-transform: lowercase; }
+	.uppercase() { text-transform: uppercase; }
 
-	.overflow () {
+	.overflow() {
 		overflow: hidden;
 		text-overflow: ellipsis;
 	}
 
-	.shadow (@val) {
+	.shadow(@val) {
 		-webkit-text-shadow: @arguments;
 		   -moz-text-shadow: @arguments;
 				text-shadow: @arguments;
 	}
 
-	.column (@count, @width, @space) {
+	.column(@count, @width, @space) {
 		-webkit-column-count: @count;
 		   -moz-column-count: @count;
 		 		column-count: @count;
@@ -162,7 +185,7 @@
 	}
 }
 
-.transition (@config: all 0.5s linear) {
+.transition(@config: all 0.5s linear) {
 	-webkit-transition: @arguments;
 	   -moz-transition: @arguments;
 		-ms-transition: @arguments;
@@ -170,14 +193,14 @@
 			transition: @arguments;
 }
 
-.box () {
-	.shadow (@all) {
+.box() {
+	.shadow(@all) {
 		-webkit-box-shadow:  @arguments;
 		   -moz-box-shadow:  @arguments;
 				box-shadow:  @arguments;
 	}
 
-	.sizing (@all: border-box) {
+	.sizing(@all: border-box) {
 		-webkit-box-sizing:  @arguments;
 		   -moz-box-sizing:  @arguments;
 				box-sizing:  @arguments;
@@ -189,207 +212,266 @@
 	}
 }
 
-.border () {
-	.radius (@val) {
+.border() {
+	.radius(@val) {
 		-webkit-border-radius: @val * 1px;
 		   -moz-border-radius: @val * 1px;
 				border-radius: @val * 1px;
 	}
 
-	.top-left-radius (@val) {
+	.top-left-radius(@val) {
 		-webkit-border-top-left-radius: @val * 1px;
 		   -moz-border-radius-topleft:  @val * 1px;
 			 -o-border-top-left-radius: @val * 1px;
 				border-top-left-radius: @val * 1px;
 	}
 
-	.top-right-radius (@val) {
+	.top-right-radius(@val) {
 		-webkit-border-top-right-radius: @val * 1px;
 		   -moz-border-radius-topright:  @val * 1px;
 			 -o-border-top-right-radius: @val * 1px;
 				border-top-right-radius: @val * 1px;
 	}
 
-	.bottom-left-radius (@val) {
+	.bottom-left-radius(@val) {
 		-webkit-border-bottom-left-radius: @val * 1px;
 		   -moz-border-radius-bottomleft:  @val * 1px;
 			 -o-border-bottom-left-radius: @val * 1px;
 				border-bottom-left-radius: @val * 1px;
 	}
 
-	.bottom-right-radius (@val) {
+	.bottom-right-radius(@val) {
 		-webkit-border-bottom-right-radius: @val * 1px;
 		   -moz-border-radius-bottomright:  @val * 1px;
 			 -o-border-bottom-right-radius: @val * 1px;
 				border-bottom-right-radius: @val * 1px;
 	}
 
-	.top-radius (@val) {
-		.border .top-left-radius (@val);
-		.border .top-right-radius (@val);
+	.top-radius(@val) {
+		.border .top-left-radius(@val);
+		.border .top-right-radius(@val);
 	}
 
-	.right-radius (@val) {
-		.border .top-right-radius (@val);
-		.border .bottom-right-radius (@val);
+	.right-radius(@val) {
+		.border .top-right-radius(@val);
+		.border .bottom-right-radius(@val);
 	}
 
-	.bottom-radius (@val) {
-		.border .bottom-left-radius (@val);
-		.border .bottom-right-radius (@val);
+	.bottom-radius(@val) {
+		.border .bottom-left-radius(@val);
+		.border .bottom-right-radius(@val);
 	}
 
-	.left-radius (@val) {
-		.border .top-left-radius (@val);
-		.border .bottom-left-radius (@val);
+	.left-radius(@val) {
+		.border .top-left-radius(@val);
+		.border .bottom-left-radius(@val);
 	}
 }
 
 
 /* Funções de visibilidade dos elementos 
 ========================================== */
-.opacity (@opacity){
+.opacity(@opacity) when (isnumber(@opacity)){
 	-webkit-opacity: @opacity;
 	 -khtml-opacity: @opacity;
 	   -moz-opacity: @opacity;
 			opacity: @opacity;
 
 	@ie-opacity: @opacity * 100;
-	-ms-filter: ~"progid:DXImageTransform.Microsoft.Alpha (opacity=@{ie-opacity})";
-	    filter: ~"alpha (opacity=@{ie-opacity})";
+	-ms-filter: ~"progid:DXImageTransform.Microsoft.Alpha(opacity=@{ie-opacity})";
+	    filter: ~"alpha(opacity=@{ie-opacity})";
+
+    .webkit(@opacity) {
+		-webkit-opacity: @opacity;
+				opacity: @opacity;
+	}
+
+	.moz(@opacity) {
+		-moz-opacity: @opacity;
+	    	 opacity: @opacity;
+	}
+
+	.ms(@opacity) {
+		opacity: @opacity;
+
+		@ie-opacity: @opacity * 100;
+		-ms-filter: ~"progid:DXImageTransform.Microsoft.Alpha(opacity=@{ie-opacity})";
+	    	filter: ~"alpha(opacity=@{ie-opacity})";	
+	}
 }
 
-.over () {
-	.auto () { overflow: auto; }
-	.show () { overflow: visible; }
-	.hide () { overflow: hidden; }
+.over() {
+	.auto() { overflow: auto; }
+	.show() { overflow: visible; }
+	.hide() { overflow: hidden; }
 
-	.show-y () { overflow-y: visible; }
-	.show-x () { overflow-x: visible; }
-	.hide-y () { overflow-y: hidden; }
-	.hide-x () { overflow-x: hidden; }
-	.hide-text () {
+	.show-y() { overflow-y: visible; }
+	.show-x() { overflow-x: visible; }
+	.hide-y() { overflow-y: hidden; }
+	.hide-x() { overflow-x: hidden; }
+	.hide-text() {
 		overflow: hidden;
 		text-overflow: ellipsis;
 	}
 }
 
-.toggle-placeholder (@type: text-indent, @time: .5s .5s) {
-	.show .placeholder (@type, @time);
+.toggle-placeholder(@type: text-indent, @time: .5s .5s) {
+	.show .placeholder(@type, @time);
 
-	&:focus { .hide .placeholder (@type, @time); }
+	&:focus { .hide .placeholder(@type, @time); }
 }
 
-.show (@display) { display: @display; }
-.show () {
+.show(@display) { display: @display; }
+.show() {
 	display: block;
 
-	.maximize (@transition-time: .5s, @position: relative) {
+	.maximize(@transition-time: .5s, @position: relative) {
 		.show .opacity(@position);
-		.transition (all @transition-time);
+		.transition(all @transition-time);
 	}
 
-	.opacity (@position: relative, @opacity: 1) {
+	.opacity(@position: relative, @opacity: 1) {
 		visibility: visible;
-		.show .opacity-router (@position, @opacity);
+		.show .opacity-router(@position, @opacity);
 	}
 
-	.opacity-router (@opacity, @position) when (isnumber (@opacity)) {
+	.opacity-router(@opacity, @position) when (isnumber(@opacity)) {
 		position: @position;
-		.opacity (@opacity);
+		.opacity(@opacity);
 	}
 
-	.opacity-router (@position, @opacity) when not (isnumber (@position)) {
+	.opacity-router(@position, @opacity) when not (isnumber(@position)) {
 		position: @position;
-		.opacity (@opacity);
+		.opacity(@opacity);
 	}
 
-	.text-indent (@time: .5s) {
+	.text-indent() { text-indent: 0; }
+	.text-indent(@time: .5s) {
 		text-indent: 0;
-		.transition (text-indent @time ease);
+		.transition(text-indent @time ease);
 	}
 
-	.placeholder (@type: text-indent, @time: 0.5s 0.5s){
+	.placeholder(@type: text-indent, @time: 0.5s 0.5s) {
 		&::-webkit-input-placeholder {
-			.show .placeholder-router (@type, @time);
+			.show .placeholder-router(@type, @time, webkit);
 		}
 
 		&:-moz-placeholder {
-			.show .placeholder-router (@type, @time);
+			.show .placeholder-router(@type, @time, moz);
 		}
 
 		&::-moz-placeholder {
-			.show .placeholder-router (@type, @time);
+			.show .placeholder-router(@type, @time, moz);
 		}
 
 		&:-ms-input-placeholder {
-			.show .placeholder-router (@type, @time);
+			.show .placeholder-router(@type, @time, ms);
+		}
+
+		&::input-placeholder {
+			.hide .placeholder-router(@type, @time, all);
 		}
 	}
 
-	.placeholder-router (@type, @time) when (@type = opacity) {
-		.show .opacity (static);
-		.transition (all @time);
+	.placeholder-router(@type, @time, @browser) when (@type = opacity) and (@browser = webkit) {
+		.opacity .webkit(1);
+		.transition(~"-webkit-opacity @{time}, opacity @{time}");
 	}
 
-	.placeholder-router (@type, @time) when (@type = text-indent) {
-		.show .text-indent (@time);
+	.placeholder-router(@type, @time, @browser) when (@type = opacity) and (@browser = moz) {
+		.opacity .moz(1);
+		.transition(~"-moz-opacity @{time}, opacity @{time}");
+	}
+
+	.placeholder-router(@type, @time, @browser) when (@type = opacity) and (@browser = ms) {
+		.opacity .ms(1);
+		.transition(~"filter @{time}, ms-filter @{time}, opacity @{time}");
+	}
+
+	.placeholder-router(@type, @time, @browser) when (@type = opacity) and (@browser = all) {
+		.opacity(1);
+		.transition(all @time);
+	}
+
+	.placeholder-router(@type, @time, @browser) when (@type = text-indent) {
+		.show .text-indent(@time);
 	}
 }
 
-.hide () {
+.hide() {
 	display: none;
 
-	.minimize (@transition-time: .5s, @position: absolute) {
+	.minimize(@transition-time: .5s, @position: absolute) {
 		.hide .opacity(@position);
-		.transition (all @transition-time);
+		.transition(all @transition-time);
 	}
 
-	.opacity (@position: absolute, @opacity: 0) {
+	.opacity(@position: absolute, @opacity: 0) {
 		visibility: hidden;
-		.hide .opacity-router (@position, @opacity);
+		.hide .opacity-router(@position, @opacity);
 	}
 
-	.opacity-router (@opacity, @position) when (isnumber (@opacity)) {
+	.opacity-router(@opacity, @position) when (isnumber(@opacity)) {
 		position: @position;
-		.opacity (@opacity);
+		.opacity(@opacity);
 	}
 
-	.opacity-router (@position, @opacity) when not (isnumber (@position)) {
+	.opacity-router(@position, @opacity) when not (isnumber(@position)) {
 		position: @position;
-		.opacity (@opacity);
+		.opacity(@opacity);
 	}
 
-	.text-indent (@time) {
+	.text-indent() { text-indent: -99999px; }
+
+	.text-indent(@time) {
 		text-indent: -200%;
-		.transition (text-indent @time ease);
+		.transition(text-indent @time ease);
 	}
 
-	.placeholder (@type, @time: 0.5s 0.5s){
+	.placeholder(@type, @time: 0.5s 0.5s) {
 		&::-webkit-input-placeholder {
-			.hide .placeholder-router (@type, @time);
+			.hide .placeholder-router(@type, @time, webkit);
 		}
 
 		&:-moz-placeholder {
-			.hide .placeholder-router (@type, @time);
+			.hide .placeholder-router(@type, @time, moz);
 		}
 
 		&::-moz-placeholder {
-			.hide .placeholder-router (@type, @time);
+			.hide .placeholder-router(@type, @time, moz);
 		}
 
 		&:-ms-input-placeholder {
-			.hide .placeholder-router (@type, @time);
+			.hide .placeholder-router(@type, @time, ms);
+		}
+
+		&::input-placeholder {
+			.hide .placeholder-router(@type, @time, all);
 		}
 	}
 
-	.placeholder-router (@type, @time) when (@type = opacity) {
-		.hide .opacity (static);
-		.transition (all @time);
+	.placeholder-router(@type, @time, @browser) when (@type = opacity) and (@browser = webkit) {
+		.opacity .webkit(0);
+		.transition(~"-webkit-opacity @{time}, opacity @{time}");
 	}
 
-	.placeholder-router (@type, @time) when (@type = text-indent) {
-		.hide .text-indent (@time);
+	.placeholder-router(@type, @time, @browser) when (@type = opacity) and (@browser = moz) {
+		.opacity .moz(0);
+		.transition(~"-moz-opacity @{time}, opacity @{time}");
+	}
+
+	.placeholder-router(@type, @time, @browser) when (@type = opacity) and (@browser = ms) {
+		.opacity .ms(0);
+		.transition(~"filter @{time}, ms-filter @{time}, opacity @{time}");
+	}
+
+	.placeholder-router(@type, @time, @browser) when (@type = opacity) and (@browser = all) {
+		.opacity(0);
+		.transition(all @time);
+	}
+
+	.placeholder-router(@type, @time, @browser) when (@type = text-indent) {
+		.hide .text-indent(@time);
 	}
 }
 /* ======================================= */
@@ -405,37 +487,37 @@
  *
  * Exemplos:
  *
- * * font-family: .font (Arial)
+ * * font-family: .font(Arial)
  *
- * * font-size e line-height (automático): .font (12pt);
- * * font-size e line-height (manual): .font (12pt, 15pt);
+ * * font-size e line-height(automático): .font(12pt);
+ * * font-size e line-height(manual): .font(12pt, 15pt);
  *
- * * font-size, line-height (automático) e color: .font (12pt, #fff);
- * * font-size, line-height (manual) e color: .font (12pt, 15pt, #fff);
+ * * font-size, line-height(automático) e color: .font(12pt, #fff);
+ * * font-size, line-height(manual) e color: .font(12pt, 15pt, #fff);
  *
- * * font-size, line-height (automático) e font-family: .font (12pt, Arial);
- * * font-size, line-height (manual) e font-family: .font (12pt, 15pt, Arial);
+ * * font-size, line-height(automático) e font-family: .font(12pt, Arial);
+ * * font-size, line-height(manual) e font-family: .font(12pt, 15pt, Arial);
  *
- * * font-size, line-height (automático), font-family e color: .font (12pt, Arial, #fff);
- * * font-size, line-height (manual), font-family e color: .font (12pt, 15pt, Arial, #fff);
+ * * font-size, line-height(automático), font-family e color: .font(12pt, Arial, #fff);
+ * * font-size, line-height(manual), font-family e color: .font(12pt, 15pt, Arial, #fff);
  */
 
-.font-face (@font-family, @file-name) {
+.font-face(@font-family, @file-name) {
 	@font-path: '@{fonts-path}@{file-name}';
 	@font-face {
 		font-family: @font-family;
-		src: url ('@{font-path}.eot');
-		src: url ('@{font-path}.eot?#iefix') format ('embedded-opentype'),
-			 url ('@{font-path}.woff') format ('woff'),
-			 url ('@{font-path}.ttf') format ('truetype'),
-			 url ('@{font-path}.svg#webfont') format ('svg');
+		src: url('@{font-path}.eot');
+		src: url('@{font-path}.eot?#iefix') format('embedded-opentype'),
+			 url('@{font-path}.woff') format('woff'),
+			 url('@{font-path}.ttf') format('truetype'),
+			 url('@{font-path}.svg#webfont') format('svg');
 	}
 }
 
 @line-ratio: 1.5;
 
 /* font-family: @family; */
-.font (@family) when not (isnumber (@family)) {
+.font(@family) when not (isnumber(@family)) {
 	font-family: @family;
 }
 
@@ -443,7 +525,7 @@
  * color: @color;
  * font-family: @family;
  */
-.font (@family, @color) when not (isnumber (@family)) and (iscolor (@color)){
+.font(@family, @color) when not (isnumber(@family)) and(iscolor(@color)) {
 	color: @color;
 	font-family: @family;
 }
@@ -452,16 +534,16 @@
  * font-size: @size;
  * *line-height calculado a partir do @size;
  */
-.font (@size) when (isnumber (@size)){
+.font(@size) when (isnumber(@size)) {
 	font-size:  @size;
-	line-height: (round (@size * @line-ratio) - 3) * 1px;
+	line-height:(round(@size * @line-ratio) - 3) * 1px;
 }
 
 /**
  * font-size: @size;
  * line-height: @line-height;
  */
-.font (@size, @line-height) when (isnumber (@size)) and (isnumber (@line-height)){
+.font(@size, @line-height) when (isnumber(@size)) and(isnumber(@line-height)) {
 	font-size:  @size;
 	line-height: @line-height;
 }
@@ -471,11 +553,11 @@
  * font-size: @size;
  * *line-height calculado a partir do @size;
  */
-.font (@size, @color) when (isnumber (@size)) and (iscolor (@color)){
+.font(@size, @color) when (isnumber(@size)) and(iscolor(@color)) {
 	color: @color;
 
 	font-size:  @size;
-	line-height: (round (@size * @line-ratio) - 3) * 1px;
+	line-height:(round(@size * @line-ratio) - 3) * 1px;
 }
 
 /**
@@ -483,7 +565,7 @@
  * font-size: @size;
  * line-height: @line-height;
  */
-.font (@size, @line-height, @color) when (isnumber (@size)) and (isnumber (@line-height)) and (iscolor (@color)) {
+.font(@size, @line-height, @color) when (isnumber(@size)) and(isnumber(@line-height)) and(iscolor(@color)) {
 	color: @color;
 
 	font-size:  @size;
@@ -494,15 +576,15 @@
  * font: @size/@line-height @family;
  * *line-height calculado a partir do @size;
  */
-.font (@size, @family) when (isnumber (@size)) and not (isnumber (@family)) and not (iscolor (@family)){
-	@line-height: (round (@size * @line-ratio) - 3) * 1px;
+.font(@size, @family) when (isnumber(@size)) and not(isnumber(@family)) and not(iscolor(@family)) {
+	@line-height:(round(@size * @line-ratio) - 3) * 1px;
 	font: ~"@{size}/@{line-height}" @family;
 }
 
 /**
  * font-size: @size/@line-height @family;
  */
-.font (@size, @line-height, @family) when (isnumber (@size)) and (isnumber (@line-height)) and not (iscolor (@family)) {
+.font(@size, @line-height, @family) when (isnumber(@size)) and(isnumber(@line-height)) and not(iscolor(@family)) {
 	font: ~"@{size}/@{line-height}" @family;
 }
 
@@ -511,10 +593,10 @@
  * font: @size/@line-height @family;
  * *line-height calculado a partir do @size;
  */
-.font (@size, @family, @color) when (isnumber (@size)) and not (isnumber (@family)) and (iscolor (@color)){
+.font(@size, @family, @color) when (isnumber(@size)) and not(isnumber(@family)) and(iscolor(@color)) {
 	color: @color;
 
-	@line-height: (round (@size * @line-ratio) - 3) * 1px;
+	@line-height:(round(@size * @line-ratio) - 3) * 1px;
 	font: ~"@{size}/@{line-height}" @family;
 }
 
@@ -522,7 +604,7 @@
  * color: @color; 
  * font: @size/@line-height @family;
  */
-.font (@size, @line-height, @family, @color) {
+.font(@size, @line-height, @family, @color) {
 	color: @color;
 	font: ~"@{size}/@{line-height}" @family;
 }
