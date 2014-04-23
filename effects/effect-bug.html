@@ -1,0 +1,300 @@
+<style type="text/css">
+	.status-button-container {
+		display: block;
+		position: relative;
+
+		width: 100px;
+		height: 30px;
+		padding: 0;
+
+		border: none;
+		background: none;
+	}
+
+	.status-button {
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		position: absolute;
+
+		-webkit-transform-style: preserve-3d;
+		   -moz-transform-style: preserve-3d;
+			 -o-transform-style: preserve-3d;
+				transform-style: preserve-3d;
+
+		-webkit-transition: -webkit-transform 1s;
+		   -moz-transition: -moz-transform 1s;
+			 -o-transition: -o-transform 1s;
+				transition: transform 1s;
+	}
+
+	/*.enabled .status-button {
+		-webkit-transform: translateZ(-15px);
+		   -moz-transform: translateZ(-15px);
+			 -o-transform: translateZ(-15px);
+				transform: translateZ(-15px);
+	}*/
+
+	.disabled .status-button {
+		/*-webkit-transform: rotateX(-90deg) translateZ(-15px);
+		   -moz-transform: rotateX(-90deg) translateZ(-15px);
+			 -o-transform: rotateX(-90deg) translateZ(-15px);
+				transform: rotateX(-90deg) translateZ(-15px);
+				*/
+		-webkit-transform: rotateX(-90deg);
+		   -moz-transform: rotateX(-90deg);
+			 -o-transform: rotateX(-90deg);
+				transform: rotateX(-90deg);
+	}
+
+	.status-button span {
+		-webkit-backface-visibility: hidden;
+		   -moz-backface-visibility: hidden;
+			 -o-backface-visibility: hidden;
+				backface-visibility: hidden;
+	}
+
+	.status-button span {
+		display: block;
+		text-align: center;
+		top: 0;
+		position: absolute;
+
+		width: 100%;
+		height: 100%;
+		line-height: 30px;
+
+		cursor: pointer;
+
+		font-weight: bold;
+		text-transform: uppercase;
+
+	}
+
+	.status-button .label-enabled {
+		color: #358337;
+		background: #7ACA7C;
+/*
+		-webkit-transform: translateZ(-15px);
+		   -moz-transform: translateZ(-15px);
+			 -o-transform: translateZ(-15px);
+				transform: translateZ(-15px);*/
+	}
+
+	.status-button .label-disabled {
+		color: #A33A3A;
+		background: #E96A6A;
+
+		/*-webkit-transform: rotateX(90deg) translateZ(-15px);
+		   -moz-transform: rotateX(90deg) translateZ(-15px);
+			 -o-transform: rotateX(90deg) translateZ(-15px);
+				transform: rotateX(90deg) translateZ(-15px);*/
+
+		-webkit-transform: rotateX(90deg);
+		   -moz-transform: rotateX(90deg);
+			 -o-transform: rotateX(90deg);
+				transform: rotateX(90deg);
+	}
+
+
+	.blocks-container {
+		margin: 35px 0;
+		background-color: white;
+		border: 1px solid #BBB;
+
+		-webkit-border-radius: 5px;
+		   -moz-border-radius: 5px;
+			 -o-border-radius: 5px;
+				border-radius: 5px;
+	}
+
+	.blocks-list,
+	.statics-block {		
+		margin: 0;
+		list-style: none;
+	}
+
+	.blocks-list .block-item {
+		padding: 7px;
+		border-bottom: 1px solid #BBB;
+	}
+
+	.blocks-list .block-item:last-child {
+		border-bottom: none;
+	}
+
+	.blocks-list .block-image,
+	.blocks-list .block-info {
+		vertical-align: top;
+		display: inline-block;
+	}
+
+	.blocks-list .block-image {
+		margin-right: 20px;
+	}
+
+	.blocks-list .block-title {
+		margin-top: 0;
+		color: #333;
+	}
+
+	.blocks-list a:hover {
+		text-decoration: none;
+	}
+
+	.blocks-container,
+	.blocks-container li {
+		-webkit-box-sizing: border-box;
+		   -moz-box-sizing: border-box;
+			 -o-box-sizing: border-box;
+				box-sizing: border-box;
+	}
+
+	.statics-block { padding: 10px 20px; }
+	.statics-block .statics-title {
+		vertical-align: bottom;
+		padding-bottom: 15px;
+		margin-bottom: 25px;
+		border-bottom: 1px solid #BBB;
+	}
+
+	.statics-block .statics-list {
+		margin: 0;
+		font-size: 0;
+		line-height: 0;
+	}
+
+	.statics-block li {
+		width: 25%;
+
+		display: inline-block;
+		border-right: 1px solid #BBB;
+	}
+
+	.statics-block li:last-child {
+		border: none;
+	}
+
+
+	.statics-block span {
+		display: block;
+		text-align: center;
+	}
+
+	@media (min-width: 1200px){
+		.statics-block .statics-label {
+			font-size: 30px;
+			line-height: 40px;
+		}
+
+		.statics-block .statics-value {
+			font-size: 95px;
+			line-height: 100px;
+		}
+	}
+
+	@media (max-width: 1199px){
+		.statics-block .statics-label {
+			font-size: 25px;
+			line-height: 35px;
+		}
+
+		.statics-block .statics-value {
+			font-size: 75px;
+			line-height: 80px;
+		}
+	}
+
+</style>
+
+<div class="blocks-container statics-block">
+	<h1 class="statics-title">
+		<i class="icon-stats-up"></i> Estatísticas
+	</h1>
+
+	<ul class="statics-list">
+		<li>
+			<span class="statics-label">Total visitantes</span>
+			<span class="statics-value">300</span>
+		</li>
+
+		<li>
+			<span class="statics-label">Visitantes online</span>
+			<span class="statics-value">5</span>
+		</li>
+
+		<li>
+			<span class="statics-label">Total hoje</span>
+			<span class="statics-value">10</span>
+		</li>
+
+		<li>
+			<span class="statics-label">Total este mês</span>
+			<span class="statics-value">25</span>
+		</li>
+	</ul>
+</div>
+
+<div class="blocks-container">
+	<ul class="blocks-list">
+		{loop="$blocos"}
+			<li class="block-item">
+				{*<a href="{$value.url}">*}
+					{$value.icon=preg_replace('/http\:/', 'https:', $value.icon)}
+					<div class="block-image">
+						<img src="{$value.icon}#" title="{$value.titulo}" alt="{$value.titulo}">
+					</div>
+
+					<div class="block-info">
+						<h2 class="block-title">{$value.titulo}</h2>
+
+						{$rand_test=rand(0,1)}
+						<input id="block-status-{$value.id}" class="block-status-input" name="_publish" type="checkbox" {if="$value._publish == $rand_test"}checked{/if}>
+
+						<label class="status-button-container {if="$value._publish == $rand_test"}enabled{else}disabled{/if}" for="block-status-{$value.id}">
+							<div class="status-button">
+								<span class="label-enabled">Ativo</span>
+								<span class="label-disabled">Desativado</span>
+							</div>
+						</label>
+
+					</div>
+				{*</a>*}
+			</li>
+		{/loop}
+	</ul>
+</div>
+{*
+	<ul class="thumbnails mws-gallery">
+		{loop="$blocos"}
+		<li>
+			<span class="thumbnail" >
+				<a href="{$value.url}">
+					<img src="{$value.icon}#" title="{$value.titulo}" alt="{$value.titulo}">
+					<p>{$value.titulo}</p>  
+				</a>
+			</span>
+		</li>
+		{/loop}
+	</ul>
+*}
+
+<script>
+$(document).ready(function(){
+	$('.block-status-input').change(function(){
+
+		var status = {to_add: null, to_remove: null };
+
+		if($(this).is(':checked')){
+			status.to_add = 'enabled';
+			status.to_remove = 'disabled';
+		} else {
+			status.to_add = 'disabled';
+			status.to_remove = 'enabled';
+		}
+
+		$(this).siblings('label').removeClass(status.to_remove).addClass(status.to_add);
+	});
+});
+</script>
