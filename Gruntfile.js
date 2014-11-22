@@ -1,30 +1,27 @@
 module.exports = function(grunt) {
     'use strict';
 
+    var tasks = {
+        dev: ['jshint', 'concat', 'uglify', 'copy', 'sass', 'autoprefixer'],
+        devWatch: []
+    };
+
+    tasks.devWatch.push.apply(tasks.devWatch, tasks.dev);
+    tasks.devWatch.push('watch');
+
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         concat: {
-            options : {
-                sourceMap :true
+            options: {
+                sourceMap: false
             },
             defaultScripts: {
                 src: ["src/js/**/*.js"],
-                dest: "src/scripts/all-scripts.js"
+                dest: "dist/js/all-scripts.js"
             },
             defaultStyles: {
-                src: [
-                    "src/sass/base.scss",
-                    "src/sass/default.scss"
-                ],
-                dest: 'src/sass/default-styles.scss'
-            },
-            homeStyles: {
-                src: [
-                    "src/sass/base.scss",
-                    "src/sass/home.scss",
-                    "src/sass/services.scss"
-                ],
-                dest: 'src/sass/home-styles.scss',
+                src: ["src/sass/**/*.scss", "!src/sass/**/_*.scss"],
+                dest: "dist/sass/all-styles.scss"
             }
         },
         jshint: {
@@ -35,38 +32,52 @@ module.exports = function(grunt) {
             ]
         },
         uglify: {
-            options : {
-                sourceMap: true,
-                sourceMapIncludeSources: true,
-                sourceMapIn: '.tmp/main.js.map'
+            options: {
+                sourceMap: false,
             },
-            files : {
+            files: {
                 "../frontend/js/all-scripts.min.js": ["<%= concat.defaultScripts.dest %>"]
+            }
+        },
+        copy: {
+            sass: {
+                files: [
+                    {
+                        flatten: true,
+                        expand: true,
+                        src: ['src/sass/**/_*.scss'],
+                        dest: 'dist/sass/'
+                    },
+                ]
             }
         },
         sass: {
             dist: {
                 options: {
-                    sourceMap: true,
-                    style: 'compressed'
+                    sourcemap: 'none',
+                    style: 'expanded'
                 },
                 files: {
-                    "../frontend/css/default-styles.css": "<%= concat.defaultStyles.dest %>",
-                    "../frontend/css/home-styles.css": "<%= concat.homeStyles.dest %>"
+                    "../frontend/css/all-styles.css": "<%= concat.defaultStyles.dest %>"
                 }
             }
         },
+        autoprefixer: {
+            dist: {
+                expand: true,
+                flatten: true,
+                src: '../frontend/css/**/*.css',
+                dest: '../frontend/css/'
+            }
+        },
         watch: {
-            concat: {
-                tasks: ['concat:homeStyles', 'concat:defaultStyles']
-            },
             sass: {
                 files: 'src/sass/**/*.scss',
-                tasks: ['sass']
+                tasks: ['concat:defaultStyles', 'copy:sass', 'sass', 'autoprefixer']
             },
             scripts: {
                 files: ['src/js/**/*.js'],
-                tasks: ['jshint', 'uglify'],
+                tasks: ['jshint', 'concat:defaultScripts', 'uglify'],
                 options: {
                   spawn: false,
                 },
@@ -85,17 +96,20 @@ module.exports = function(grunt) {
                 }
             },
             grunt: {
-                files: ['Gruntfile.js']
+                files: ['Gruntfile.js'],
+                tasks: tasks.dev
             }
         }
     });
 
+    grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-sass');
+    grunt.loadNpmTasks('grunt-autoprefixer');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
-    grunt.registerTask('dev', ['concat', 'jshint', 'uglify', 'sass']);
-    grunt.registerTask('dev-watch', ['concat', 'jshint', 'uglify', 'sass', 'watch']);
+    grunt.registerTask('dev', tasks.dev);
+    grunt.registerTask('dev-watch', tasks.devWatch);
 };
