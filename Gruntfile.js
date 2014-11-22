@@ -16,27 +16,30 @@ module.exports = function(grunt) {
                 sourceMap: false
             },
             defaultScripts: {
-                src: ["src/js/**/*.js"],
-                dest: "dist/js/all-scripts.js"
+                src: ['src/js/**/*.js'],
+                dest: 'dist/js/all-scripts.js'
             },
             defaultStyles: {
-                src: ["src/sass/**/*.scss", "!src/sass/**/_*.scss"],
-                dest: "dist/sass/all-styles.scss"
+                src: ['src/sass/**/*.scss', '!src/sass/**/_*.scss'],
+                dest: 'dist/sass/all-styles.scss'
             }
         },
         jshint: {
-            all: [
+            beforeconcat: [
                 'Gruntfile.js',
                 'src/js/**/*.js',
                 '../../Frontend/**/*.json',
-            ]
+            ],
+            afterconcat: ['<%= concat.defaultScripts.dest %>']
         },
         uglify: {
             options: {
                 sourceMap: false,
             },
-            files: {
-                "../frontend/js/all-scripts.min.js": ["<%= concat.defaultScripts.dest %>"]
+            dist: {
+                files: {
+                    '../frontend/js/all-scripts.min.js': ['<%= concat.defaultScripts.dest %>']
+                }
             }
         },
         copy: {
@@ -47,7 +50,7 @@ module.exports = function(grunt) {
                         expand: true,
                         src: ['src/sass/**/_*.scss'],
                         dest: 'dist/sass/'
-                    },
+                    }
                 ]
             }
         },
@@ -58,7 +61,7 @@ module.exports = function(grunt) {
                     style: 'expanded'
                 },
                 files: {
-                    "../frontend/css/all-styles.css": "<%= concat.defaultStyles.dest %>"
+                    '../frontend/css/all-styles.css': '<%= concat.defaultStyles.dest %>'
                 }
             }
         },
@@ -87,8 +90,6 @@ module.exports = function(grunt) {
                     '../../Frontend/**/*.html',
                     '../../Frontend/**/*.json',
                     '../../../paginas/*.php',
-                    'js/**/*.js',
-                    'css/*.css',
                     'img/**/*.{png,jpg,jpeg,gif,webp,svg}'
                 ],
                 options: {
