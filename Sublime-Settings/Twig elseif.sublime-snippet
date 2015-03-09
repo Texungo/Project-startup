@@ -1,0 +1,6 @@
+<snippet>
+	<tabTrigger>elseif</tabTrigger>
+	<content><![CDATA[
+{% elseif ${1:condition} %}
+]]></content>
+</snippet>
