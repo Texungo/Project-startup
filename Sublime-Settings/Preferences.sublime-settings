@@ -1,0 +1,29 @@
+{
+	"auto_complete_triggers":
+	[
+		{
+			"characters": "[^/]+/",
+			"selector": "string.quoted.double.html,string.quoted.single.html,source.css,source.scss,source.sass,source.less"
+		}
+	],
+	"caret_extra_width": 1,
+	"caret_style": "phase",
+	"color_scheme": "Packages/Predawn Monokai/Predawn Monokai.tmTheme",
+	"draw_minimap_border": true,
+	"enable_tab_scrolling": true,
+	"font_size": 10,
+	"highlight_line": true,
+	"ignored_packages":
+	[
+		"Vintage"
+	],
+	"overlay_scroll_bars": "enabled",
+	"rulers":
+	[
+		80,
+		120
+	],
+	"theme": "predawn-DEV.sublime-theme",
+	"trailing_spaces_trim_on_save": true,
+	"trim_trailing_white_space_on_save": true
+}
