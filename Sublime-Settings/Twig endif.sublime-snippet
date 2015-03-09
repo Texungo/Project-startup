@@ -1,0 +1,6 @@
+<snippet>
+	<tabTrigger>endif</tabTrigger>
+	<content><![CDATA[
+{% endif %}
+]]></content>
+</snippet>
