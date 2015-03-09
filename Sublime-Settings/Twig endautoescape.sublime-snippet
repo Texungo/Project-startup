@@ -1,0 +1,6 @@
+<snippet>
+	<tabTrigger>endautoescape</tabTrigger>
+	<content><![CDATA[
+{% endautoescape %}
+]]></content>
+</snippet>
