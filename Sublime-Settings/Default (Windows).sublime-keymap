@@ -1,0 +1,23 @@
+[
+    { "keys": ["f2"], "command": "side_bar_rename" },
+    { "keys": ["ctrl+k", "ctrl+t"], "command": "title_case" },
+
+    { "keys": ["ctrl+shift+a"], "command": "prompt_add_folder"},
+
+    { "keys": ["ctrl+alt+f"], "command": "side_bar_find_in_project"},
+    { "keys": ["ctrl+alt+d"], "command": "toggle_trailing_spaces" },
+    { "keys": ["ctrl+alt+t"], "command": "delete_trailing_spaces" },
+
+    { "keys": ["ctrl+alt+c"], "command": "toggle_case_sensitive", "context":
+        [
+            { "key": "setting.is_widget", "operator": "equal", "operand": true }
+        ]
+    },
+    { "keys": ["ctrl+s+r"], "command": "browser_refresh", "args": {
+          "auto_save": true,
+          "delay": 0.5,
+          "activate_browser": true,
+          "browser_name" : "Google Chrome"
+      }
+    }
+]
